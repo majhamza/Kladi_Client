@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.net.SocketException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -46,7 +47,7 @@ public static void main(String[] args) throws SocketException, IOException {
 	
 	//args[0] est le chemin vers le fichier audio
 	//exec("10.10.1.21",args[0],"");
-	exec("192.168.43.36","/home/majhamza/Téléchargements/Reco_locuteurs/Ismael/bruits/ismael_002_M_21/117c_cafe0.wav","");
+	exec("192.168.43.36",args[0],"");
 		  }
 
 
@@ -66,8 +67,15 @@ public static void exec(String ip, String file_path, String log_path) throws Soc
 	// est affiché dans la console et on garde trace du résultat principale et les autres résultats
 	// dans le log.
 		    
-		    String st=r.substring(r.indexOf(' ')+1,r.indexOf('|')-1);
-		   System.out.println(st);
+		    //String st=r.substring(r.indexOf(' ')+1,r.indexOf('|')-1);
+	       StringTokenizer st=new StringTokenizer(r);
+	       st.nextToken();
+	       for(int i=1; i<4; i++){
+	    	   PrintWriter p=new PrintWriter("/tmp/"+i+".txt");
+	    	   p.println(st.nextToken());
+	    	   p.close();
+	       }
+		   System.out.println(r);
 		   // String st2=r.substring(r.indexOf('|')+1);
 			//logWriter(st2,log_path);
 	
